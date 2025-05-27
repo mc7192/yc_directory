@@ -16,21 +16,29 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Utilities and Tools Used
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **[shadcn/ui](https://ui.shadcn.com/)** – A modern, customizable React component library built on Radix UI and Tailwind CSS.
+- **[Sanity](https://www.sanity.io/)** – Headless CMS used for managing and delivering content.
+- **[Zod](https://zod.dev/)** – TypeScript-first schema validation library for validating inputs and ensuring type safety.
+- **[NextAuth.js](https://next-auth.js.org/)** – Authentication library for Next.js supporting OAuth providers like GitHub.
+- **[Lucide](https://lucide.dev/)** – A simple, customizable, and consistent icon library for React and other frameworks.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## How to Use These Tools
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **shadcn/ui**  
+  Use this component library to quickly build UI elements with accessibility and design consistency. Import pre-built components and customize them with Tailwind CSS classes to fit your design needs.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Sanity**  
+  Sanity acts as your content backend. Define your content schemas, manage your content in the Sanity Studio, and fetch content in your Next.js app using Sanity’s client libraries. It’s perfect for dynamic content and structured data.
 
-## Deploy on Vercel
+- **Zod**  
+  Use Zod to create schemas for your data models and validate incoming data at runtime. It integrates well with TypeScript, providing type inference and safe validation of user inputs or API responses.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **NextAuth.js**  
+  NextAuth simplifies adding authentication to your Next.js app. Configure providers like GitHub, handle sessions, and secure routes using its built-in API routes and React hooks for managing user state.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Lucide**  
+  Lucide provides a set of beautiful SVG icons that you can import as React components. You can customize icon size, color, and stroke, making it easy to maintain consistent iconography throughout your app.
