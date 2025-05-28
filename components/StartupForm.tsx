@@ -3,17 +3,60 @@
 import { useState, useActionState } from "react";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
-import MDEdittor from "@uiw/react-md-editor";
+import MDEditor from "@uiw/react-md-editor";
 import { Button } from "./ui/button";
 import { Send } from "lucide-react";
+import { formSchema } from "@/lib/validation";
+import { z } from "zod";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { createPitch } from "@/lib/actions";
 
 const StartupForm = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [pitch, setPitch] = useState("");
-  const isPending = false;
+  const router = useRouter();
+
+  const handleFormSubmit = async (prevState: any, formData: FormData) => {
+    try {
+      const formValues = {
+        title: formData.get("title") as string,
+        description: formData.get("description") as string,
+        category: formData.get("category") as string,
+        link: formData.get("link") as string,
+        pitch,
+      };
+      await formSchema.parseAsync(formValues);
+      const result = await createPitch(prevState, formData, pitch);
+
+      if (result.status == "Success") {
+        toast.success("Your startup pitch has been created successfully");
+      }
+      router.push(`/startup/${result._id}`);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const fieldErrors = error.flatten().fieldErrors;
+        setErrors(fieldErrors as unknown as Record<string, string>);
+        toast.error(`Please check your input`);
+        return { ...prevState, error: "validation failed", status: "ERROR" };
+      }
+
+      toast.error("An unexpected error has occurred");
+      return {
+        ...prevState,
+        error: "An unexpected error has occurred",
+        status: "ERROR",
+      };
+    }
+  };
+  //const [state : current state , dispatch: action that we trigger in the form, isPending] = useActionState(action, initialState, permalink)
+  const [state, formAction, isPending] = useActionState(handleFormSubmit, {
+    error: "",
+    status: "INITIAL",
+  });
 
   return (
-    <form action={() => {}} className="startup-form">
+    <form action={formAction} className="startup-form">
       <div>
         <label htmlFor="title" className="startup-form_label">
           Title
@@ -38,7 +81,9 @@ const StartupForm = () => {
           required
           placeholder="Startup Title"
         />
-        {errors.title && <p className="startup-form_error">{errors.title}</p>}
+        {errors.description && (
+          <p className="startup-form_error">{errors.description}</p>
+        )}
       </div>
       <div>
         <label htmlFor="category" className="startup-form_label">
@@ -72,7 +117,7 @@ const StartupForm = () => {
         <label htmlFor="pitch" className="startup-form_label">
           Pitch
         </label>
-        <MDEdittor
+        <MDEditor
           value={pitch}
           onChange={(value) => {
             setPitch(value as string);
@@ -87,7 +132,7 @@ const StartupForm = () => {
           }}
           previewOptions={{ disallowedElements: ["style"] }}
         />
-        {errors.link && <p className="startup-form_error">{errors.link}</p>}
+        {errors.pitch && <p className="startup-form_error">{errors.pitch}</p>}
       </div>
 
       <Button

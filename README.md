@@ -23,6 +23,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - **[Zod](https://zod.dev/)** – TypeScript-first schema validation library for validating inputs and ensuring type safety.
 - **[NextAuth.js](https://next-auth.js.org/)** – Authentication library for Next.js supporting OAuth providers like GitHub.
 - **[Lucide](https://lucide.dev/)** – A simple, customizable, and consistent icon library for React and other frameworks.
+- slugify
+- mdeditor
+- sonner
 
 ---
 
